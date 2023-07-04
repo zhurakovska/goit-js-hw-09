@@ -16,3 +16,18 @@ img {
   display: block;
   max-width: 100%;
 }
+
+.btn {
+  font-size: 25px;
+  padding: 10px 20px;
+  text-transform: uppercase;
+}
+
+.start-btn {
+  margin-right: 14px;
+  border: 3px solid green;
+}
+
+.stop-btn {
+  border: 3px solid red;
+}
