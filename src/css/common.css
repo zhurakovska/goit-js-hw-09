@@ -36,3 +36,19 @@ img {
   opacity: 0.5;
   pointer-events: none;
 }
+
+.timer {
+  display: flex;
+  gap: 30px;
+  margin: 20px 10px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+.value {
+  font-size: 60px;
+}
