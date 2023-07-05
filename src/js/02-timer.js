@@ -25,15 +25,13 @@ const timer = {
   },
 
   updateTimer(difference) {
-    const { days, hours, minutes, seconds } = this.convertMs(difference);
-    this.rootSelector.querySelector('[data-days]').textContent =
-      this.addLeadingZero(days);
-    this.rootSelector.querySelector('[data-hours]').textContent =
-      this.addLeadingZero(hours);
-    this.rootSelector.querySelector('[data-minutes]').textContent =
-      this.addLeadingZero(minutes);
-    this.rootSelector.querySelector('[data-seconds]').textContent =
-      this.addLeadingZero(seconds);
+    const timeUnits = ['days', 'hours', 'minutes', 'seconds'];
+  
+    timeUnits.map(unit => {
+      const element = this.rootSelector.querySelector(`[data-${unit}]`);
+      const value = this.convertMs(difference)[unit];
+      element.textContent = this.addLeadingZero(value);
+    });
   },
 
 
