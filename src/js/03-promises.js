@@ -4,11 +4,7 @@ function promiseGenerator() {
   const onFormElSubmit = event => {
     event.preventDefault();
 
-    console.dir(event.target.elements);
-
     const { delay, step, amount } = event.target.elements;
-
-    console.log(amount.value);
 
     for (let i = 1; i <= Number(amount.value); i++) {
       createPromise(i, Number(delay.value), Number(step.value))
