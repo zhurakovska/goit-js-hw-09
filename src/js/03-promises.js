@@ -1,4 +1,4 @@
-function secondHomeWork() {
+function promiseGenerator() {
   const formEl = document.querySelector('.form');
 
   const onFormElSubmit = event => {
@@ -39,4 +39,4 @@ function secondHomeWork() {
   formEl.addEventListener('submit', onFormElSubmit);
 }
 
-secondHomeWork();
+promiseGenerator();
