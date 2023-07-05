@@ -3,18 +3,30 @@ import "flatpickr/dist/flatpickr.min.css";
 require("flatpickr/dist/themes/dark.css");
 
 const timer = {
-  intervalId: null, // переменная для идентификатора интервала
+  intervalId: null, 
   rootSelector: document.querySelector('.timer'),
+  btnEl: document.querySelector('[data-start]'),
+  alertShown: false,
 
   start(selectedDate) {
     this.intervalId = setInterval(() => {
       const currentDate = new Date();
-      const difference = selectedDate.getTime() - currentDate.getTime();
-      if (difference <= 0) {
-        this.stop();
-        return;
+      this.btnEl.classList.add('disabled');
+      if (currentDate > selectedDate) {
+        if (!this.alertShown) {        //если вывод не показан, то покажи его   
+          window.alert("Please choose a date in the future");
+          this.alertShown = true; //предотвращает повторное показание alert
+        }
+        this.btnEl.disabled = false; 
+      } else {
+        const difference = selectedDate.getTime() - currentDate.getTime();
+        if (difference <= 0) {
+          this.stop();
+          return;
+        }
+        this.btnEl.disabled = true;  //остановка кнопки пока выбранная дата не наступит
+        this.updateTimer(difference);
       }
-      this.updateTimer(difference);
     }, 1000);
   },
 
@@ -49,7 +61,7 @@ const timer = {
     return { days, hours, minutes, seconds };
   },
 
-  init() {
+  initTimer() {
     const options = {
       enableTime: true,
       time_24hr: true,
@@ -71,4 +83,4 @@ const timer = {
   },
 };
 
-timer.init();
+timer.initTimer();

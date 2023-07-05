@@ -31,3 +31,8 @@ img {
 .stop-btn {
   border: 3px solid red;
 }
+
+.disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
