@@ -1,3 +1,4 @@
+import Notiflix from 'notiflix';
 function promiseGenerator() {
   const formEl = document.querySelector('.form');
 
@@ -9,10 +10,10 @@ function promiseGenerator() {
     for (let i = 1; i <= Number(amount.value); i++) {
       createPromise(i, Number(delay.value), Number(step.value))
       .then(({ position, delay }) => {
-        console.log(`✅ Fulfilled promise ${position} in ${delay}ms`);
+        Notiflix.Notify.success(`✅ Fulfilled promise ${position} in ${delay}ms`);
       })
       .catch(({ position, delay }) => {
-        console.log(`❌ Rejected promise ${position} in ${delay}ms`);
+        Notiflix.Notify.failure(`❌ Rejected promise ${position} in ${delay}ms`);
       });
     }
 
