@@ -27,9 +27,9 @@ const timer = {
   updateTimer(difference) {
     const timeUnits = ['days', 'hours', 'minutes', 'seconds'];
   
-    timeUnits.map(unit => {
-      const element = this.rootSelector.querySelector(`[data-${unit}]`);
-      const value = this.convertMs(difference)[unit];
+    timeUnits.map(el => {
+      const element = this.rootSelector.querySelector(`[data-${el}]`);
+      const value = this.convertMs(difference)[el];
       element.textContent = this.addLeadingZero(value);
     });
   },
