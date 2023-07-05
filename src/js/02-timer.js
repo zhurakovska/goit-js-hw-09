@@ -25,14 +25,15 @@ const timer = {
   updateTimer(difference) {
     const { days, hours, minutes, seconds } = this.convertMs(difference);
     this.rootSelector.querySelector('[data-days]').textContent =
-      this.pad(days);
+      this.addLeadingZero(days);
     this.rootSelector.querySelector('[data-hours]').textContent =
-      this.pad(hours);
+      this.addLeadingZero(hours);
     this.rootSelector.querySelector('[data-minutes]').textContent =
-      this.pad(minutes);
+      this.addLeadingZero(minutes);
     this.rootSelector.querySelector('[data-seconds]').textContent =
-      this.pad(seconds);
-},
+      this.addLeadingZero(seconds);
+  },
+
 
   convertMs(ms) {
     const second = 1000;
@@ -65,7 +66,7 @@ const timer = {
 
 
 
-  pad(value) {
+  addLeadingZero(value) {
     return String(value).padStart(2, 0);
   },
 };
