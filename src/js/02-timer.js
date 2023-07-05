@@ -2,31 +2,21 @@ import flatpickr from "flatpickr";
 import "flatpickr/dist/flatpickr.min.css";
 require("flatpickr/dist/themes/dark.css");
 
+const btnEl = document.querySelector('[data-start]')
+
 const timer = {
   intervalId: null, 
   rootSelector: document.querySelector('.timer'),
-  btnEl: document.querySelector('[data-start]'),
-  alertShown: false,
 
   start(selectedDate) {
     this.intervalId = setInterval(() => {
       const currentDate = new Date();
-      this.btnEl.classList.add('disabled');
-      if (currentDate > selectedDate) {
-        if (!this.alertShown) {        //если вывод не показан, то покажи его   
-          window.alert("Please choose a date in the future");
-          this.alertShown = true; //предотвращает повторное показание alert
-        }
-        this.btnEl.disabled = false; 
-      } else {
-        const difference = selectedDate.getTime() - currentDate.getTime();
-        if (difference <= 0) {
-          this.stop();
-          return;
-        }
-        this.btnEl.disabled = true;  //остановка кнопки пока выбранная дата не наступит
-        this.updateTimer(difference);
+      const difference = selectedDate.getTime() - currentDate.getTime();
+      if (difference <= 0) {
+        this.stop();
+        return;
       }
+      this.updateTimer(difference);
     }, 1000);
   },
 
@@ -67,17 +57,31 @@ const timer = {
       time_24hr: true,
       defaultDate: new Date(),
       minuteIncrement: 1,
-      onClose(selectedDates) {
-        const selectedDate = selectedDates[0]; // Получаем выбранную дату из параметра selectedDates
-        timer.start(selectedDate);
-      },
+      onChange(selectedDate) {
+        const currentDate = new Date();
+        if (currentDate > selectedDate[0]) {
+            window.alert("Please choose a date in the future");
+            btnEl.disabled = true;
+            return;
+        } else if (btnEl.disabled === true) {
+            btnEl.disabled = false;
+        }
+      }
     };
 
     flatpickr("input#datetime-picker", options);
+    const datePicker = flatpickr("input#datetime-picker", options);
+
+    btnEl.addEventListener('click', () => {
+      const selectedDates = datePicker.selectedDates;
+      if (selectedDates.length > 0) {
+        btnEl.disabled = true;
+        const selectedDate = selectedDates[0];
+        this.start(selectedDate);
+      }
+    });
+
   },
-
-
-
   addLeadingZero(value) {
     return String(value).padStart(2, 0);
   },
