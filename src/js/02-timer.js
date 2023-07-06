@@ -26,18 +26,13 @@ const timer = {
 
   updateTimer(difference) {
     const obj = this.convertMs(difference);
-    for (const el in obj) {
-      const selector = `[data-${el}]`;
-      const value = obj[el];
+    for (const unit in obj) {
+      const selector = `[data-${unit}]`;
+      const value = obj[unit];
       this.rootSelector.querySelector(selector).textContent = this.addLeadingZero(value);
     }
   },
-    // const obj = this.convertMs(difference);
-    // Object.entries(obj).forEach(([el, value]) => {
-    //   const selector = `[data-${el}]`;
-    //   this.rootSelector.querySelector(selector).textContent = this.addLeadingZero(value);
-    // });
-
+  
   convertMs(ms) {
     const second = 1000;
     const minute = second * 60;
