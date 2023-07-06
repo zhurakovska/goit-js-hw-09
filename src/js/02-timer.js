@@ -25,15 +25,18 @@ const timer = {
   },
 
   updateTimer(difference) {
-    const timeUnits = ['days', 'hours', 'minutes', 'seconds'];
-  
-    timeUnits.map(el => {
-      const element = this.rootSelector.querySelector(`[data-${el}]`);
-      const value = this.convertMs(difference)[el];
-      element.textContent = this.addLeadingZero(value);
-    });
+    const obj = this.convertMs(difference);
+    for (const el in obj) {
+      const selector = `[data-${el}]`;
+      const value = obj[el];
+      this.rootSelector.querySelector(selector).textContent = this.addLeadingZero(value);
+    }
   },
-
+    // const obj = this.convertMs(difference);
+    // Object.entries(obj).forEach(([el, value]) => {
+    //   const selector = `[data-${el}]`;
+    //   this.rootSelector.querySelector(selector).textContent = this.addLeadingZero(value);
+    // });
 
   convertMs(ms) {
     const second = 1000;
